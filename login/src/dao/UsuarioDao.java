@@ -31,6 +31,10 @@ public class UsuarioDao {
 		
 		while (res.next()) {
 			Usuario usuario = new Usuario();
+			usuario.setId(res.getInt("id"));
+			usuario.setUsuario(res.getString("login"));
+			usuario.setSenha(res.getString("senha"));
+			list.add(usuario);
 			
 			
 		}
