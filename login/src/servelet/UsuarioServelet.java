@@ -44,6 +44,8 @@ public class UsuarioServelet extends HttpServlet {
 			
 			if (usuariodao.verificaUsuario(usuario)) {
 				System.out.println("Ja existe um usuario com esse login.");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("cadastroUsuario.jsp");
+				dispatcher.forward(request, response);
 			} else {
 				usuariodao.insert(user);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("cadastroUsuario.jsp");
