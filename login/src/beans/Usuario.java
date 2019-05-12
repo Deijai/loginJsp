@@ -25,15 +25,5 @@ public class Usuario {
 	}
 	
 	
-	public boolean validaLogin(String usuario, String senha) {
-		
-		if(usuario.equalsIgnoreCase("admin") && senha.equalsIgnoreCase("admin")) {
-			return true;
-		} else {
-			return false;
-		}		
-		
-	}
-	
 
 }
