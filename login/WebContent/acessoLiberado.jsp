@@ -10,5 +10,10 @@
 
 <h1>Bem vindo ao sistema!</h1>
 
+<br>
+<br>
+
+<a href="/login/cadastroUsuario.jsp">Cadastro de Usuario</a>
+
 </body>
 </html>
