@@ -41,9 +41,15 @@ public class UsuarioServelet extends HttpServlet {
 		user.setSenha(senha);
 		
 		try {
-			usuariodao.insert(user);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("cadastroUsuario.jsp");
-			dispatcher.forward(request, response);
+			
+			if (usuariodao.verificaUsuario(usuario)) {
+				System.out.println("Ja existe um usuario com esse login.");
+			} else {
+				usuariodao.insert(user);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("cadastroUsuario.jsp");
+				dispatcher.forward(request, response);
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
