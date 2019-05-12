@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import beans.Usuario;
 import conexao.SingleConnection;
 
@@ -15,6 +18,25 @@ public class UsuarioDao {
 	
 	public UsuarioDao() {
 		conexao = SingleConnection.getConexao();
+	}
+	
+	public List<Usuario> listAll() throws SQLException{
+		List<Usuario> list = new ArrayList<Usuario>();
+		
+		this.sql = "SELECT * FROM usuario";
+		PreparedStatement listAll = conexao.prepareStatement(this.sql);
+		
+		ResultSet res = listAll.executeQuery();
+
+		
+		while (res.next()) {
+			Usuario usuario = new Usuario();
+			
+			
+		}
+		
+		
+		return list;
 	}
 	
 	public Usuario insert(Usuario usuario) throws SQLException{
@@ -42,5 +64,12 @@ public class UsuarioDao {
 			return false;
 		}
 		
+	}
+	
+	public void delete(int id) throws SQLException {
+		this.sql = "DELETE FROM usuario WHERE id = ?";
+		PreparedStatement delete = conexao.prepareStatement(this.sql);
+		delete.setInt(1, id);
+		delete.execute();
 	}
 }
