@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans.Usuario;
+import dao.LoginDao;
 
 /**
  * Servlet implementation class LoginServelet
@@ -17,6 +17,7 @@ import beans.Usuario;
 @WebServlet("/LoginServelet")
 public class LoginServelet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private LoginDao logindao = new LoginDao();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -36,18 +37,21 @@ public class LoginServelet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Usuario user = new Usuario();
 		
 		
 		String login = request.getParameter("login");
 		String senha = request.getParameter("senha");
 		
-		if (user.validaLogin(login, senha)) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("acessoLiberado.jsp");
-			dispatcher.forward(request, response);
-		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("acessoNegado.jsp");
-			dispatcher.forward(request, response);
+		try {
+			if (logindao.validaLogin(login, senha)) {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("acessoLiberado.jsp");
+				dispatcher.forward(request, response);
+			} else {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("acessoNegado.jsp");
+				dispatcher.forward(request, response);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 
