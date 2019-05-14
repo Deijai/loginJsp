@@ -6,10 +6,7 @@ public class Usuario {
 	private String usuario;
 	private String senha;
 	
-	
-	
-	
-	
+		
 	
 	public int getId() {
 		return id;

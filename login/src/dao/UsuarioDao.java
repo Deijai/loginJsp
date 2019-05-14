@@ -14,6 +14,7 @@ public class UsuarioDao {
 	
 	private Connection conexao;
 	private String sql;
+	
 
 	
 	public UsuarioDao() {

@@ -37,6 +37,7 @@ public class UsuarioServelet extends HttpServlet {
 		String senha = request.getParameter("senha");
 		
 		
+		
 		user.setUsuario(usuario);
 		user.setSenha(senha);
 		
