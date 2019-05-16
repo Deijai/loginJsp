@@ -35,7 +35,7 @@ public class UsuarioServelet extends HttpServlet {
 			try {
 				
 				usuariodao.delete(id);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("cadastroUsuario.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/cadastroUsuario.jsp");
 				request.setAttribute("usuarios", usuariodao.listAll());
 				dispatcher.forward(request, response);
 				
@@ -50,10 +50,10 @@ public class UsuarioServelet extends HttpServlet {
 			try {
 				
 				usuario = usuariodao.listOne(id);
-				System.out.println(usuario);
+				System.out.println(usuario.getUsuario());
 				usuariodao.update(usuario, id);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("cadastroUsuario.jsp");
-				request.setAttribute("usuarios", usuariodao.listOne(id));
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/editarUsuario.jsp");
+				request.setAttribute("user", usuario);
 				dispatcher.forward(request, response);
 				
 			} catch (SQLException e) {
