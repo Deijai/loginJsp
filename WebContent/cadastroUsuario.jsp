@@ -13,6 +13,10 @@
 
 		<form action="UsuarioServelet" method="post">
 		
+			<label>Id:</label>
+			<input type="text" name="id" value="${user.id }">
+			<br>
+		
 			<label>Usuario:</label>
 			<input type="text" name="usuario" value="${user.usuario }">
 			<br>

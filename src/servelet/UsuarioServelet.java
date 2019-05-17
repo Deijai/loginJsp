@@ -52,7 +52,7 @@ public class UsuarioServelet extends HttpServlet {
 				usuario = usuariodao.listOne(id);
 				System.out.println(usuario.getUsuario());
 				usuariodao.update(usuario, id);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/editarUsuario.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/cadastroUsuario.jsp");
 				request.setAttribute("user", usuario);
 				dispatcher.forward(request, response);
 				
@@ -65,6 +65,8 @@ public class UsuarioServelet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String acao = request.getParameter("acao");
+		Integer id = Integer.parseInt(request.getParameter("id"));
 		
 		Usuario user = new Usuario();
 		String usuario = request.getParameter("usuario");
@@ -81,7 +83,20 @@ public class UsuarioServelet extends HttpServlet {
 				System.out.println("Ja existe um usuario com esse login.");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("cadastroUsuario.jsp");
 				dispatcher.forward(request, response);
-			} else {
+			} 	//editar
+			else if (acao.equalsIgnoreCase("editar") && id != null) {
+
+					
+					user = usuariodao.listOne(id);
+					System.out.println(user.getUsuario());
+					usuariodao.update(user, id);
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/cadastroUsuario.jsp");
+					request.setAttribute("user", usuario);
+					dispatcher.forward(request, response);
+					
+
+			}
+			else {
 				usuariodao.insert(user);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("cadastroUsuario.jsp");
 				request.setAttribute("usuarios", usuariodao.listAll());
