@@ -23,7 +23,7 @@
 			<label>Senha:</label>
 			<input type="password" name="senha" value="${user.senha }">
 			<br>
-			<input type="submit" value="Cadastrar">
+			<input type="submit" name="cad" value="Cadastrar">
 		</form>
 		
 		<table>

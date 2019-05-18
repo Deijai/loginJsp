@@ -11,7 +11,7 @@
 
 <h1>Cadastro de Usuário</h1>
 
-		<form action="UsuarioServelet" method="get">
+		<form action="UsuarioServelet" method="post">
 		
 			<label>Usuario:</label>
 			<input type="text" name="usuario" value="${user.usuario }">
@@ -19,7 +19,7 @@
 			<label>Senha:</label>
 			<input type="password" name="senha" value="${user.senha }">
 			<br>
-			<input type="submit" value="Cadastrar">
+			<input type="submit" name="edit" value="Editar">
 		</form>
 
 </body>

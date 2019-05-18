@@ -42,65 +42,55 @@ public class UsuarioServelet extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+		} else {
+			Usuario usuario = new Usuario();
+			try {
+				usuario = usuariodao.listOne(id);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/editarUsuario.jsp");
+			request.setAttribute("user", usuario);
+			dispatcher.forward(request, response);
+	
 		}
 		
-		//editar
-		if (acao.equalsIgnoreCase("editar")) {
-			Usuario usuario;
-			try {
-				
-				usuario = usuariodao.listOne(id);
-				System.out.println(usuario.getUsuario());
-				usuariodao.update(usuario, id);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/cadastroUsuario.jsp");
-				request.setAttribute("user", usuario);
-				dispatcher.forward(request, response);
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-		}
+	
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String acao = request.getParameter("acao");
-		Integer id = Integer.parseInt(request.getParameter("id"));
 		
 		Usuario user = new Usuario();
+		Integer id = Integer.parseInt(request.getParameter("id"));
 		String usuario = request.getParameter("usuario");
 		String senha = request.getParameter("senha");
-		
-		
+		//String cad = request.getParameter("cad");
+		String edit = request.getParameter("edit");
+
 		
 		user.setUsuario(usuario);
 		user.setSenha(senha);
 		
 		try {
 			
-			if (usuariodao.verificaUsuario(usuario)) {
-				System.out.println("Ja existe um usuario com esse login.");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("cadastroUsuario.jsp");
-				dispatcher.forward(request, response);
-			} 	//editar
-			else if (acao.equalsIgnoreCase("editar") && id != null) {
-
-					
-					user = usuariodao.listOne(id);
-					System.out.println(user.getUsuario());
-					usuariodao.update(user, id);
-					RequestDispatcher dispatcher = request.getRequestDispatcher("/cadastroUsuario.jsp");
-					request.setAttribute("user", usuario);
-					dispatcher.forward(request, response);
-					
-
-			}
-			else {
-				usuariodao.insert(user);
+			if (edit != null) {
+				usuariodao.update(user, id);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("cadastroUsuario.jsp");
 				request.setAttribute("usuarios", usuariodao.listAll());
 				dispatcher.forward(request, response);
+				
+			} else {
+				if (usuariodao.verificaUsuario(usuario)) {
+					System.out.println("Ja existe um usuario com esse login.");
+					RequestDispatcher dispatcher = request.getRequestDispatcher("cadastroUsuario.jsp");
+					dispatcher.forward(request, response);
+				}else {
+					usuariodao.insert(user);
+					RequestDispatcher dispatcher = request.getRequestDispatcher("cadastroUsuario.jsp");
+					request.setAttribute("usuarios", usuariodao.listAll());
+					dispatcher.forward(request, response);
+				}
 			}
 			
 		} catch (SQLException e) {
